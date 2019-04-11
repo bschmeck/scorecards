@@ -17,6 +17,7 @@ defmodule ScorecardsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/line.svg", PageController, :line
   end
 
   # Other scopes may use custom stacks.

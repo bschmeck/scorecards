@@ -34,4 +34,12 @@ defmodule Svg.Render do
      Integer.to_charlist(y2),
      '" style="stroke:rgb(255,0,0);stroke-width:2" />']
   end
+
+  defp render_element({:circle, x, y, r}) do
+    ['<circle cx="', Integer.to_charlist(x), '" cy="', Integer.to_charlist(y), '" r="', Integer.to_charlist(r), '" style="stroke:black; fill:black;" />']
+  end
+
+  defp render_element({:text, text, x, y}) do
+    ['<text x="', Integer.to_charlist(x), '" y="', Integer.to_charlist(y), '" fill="black" style="font-family:Arial; font-size:10pt; font-weight:normal;">', text, '</text>']
+  end
 end

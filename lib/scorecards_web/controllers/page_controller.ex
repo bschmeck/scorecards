@@ -6,7 +6,7 @@ defmodule ScorecardsWeb.PageController do
   end
 
   def line(conn, _params) do
-    svg = Svg.init(100, 100)
+    svg = Svg.init(100, 100) |> Svg.add_line(0, 0, 70, 80)
     conn
     |> put_resp_content_type("image/svg+xml")
     |> text Svg.render(svg)

@@ -1,4 +1,6 @@
 defmodule Svg.Render do
+  alias Svg.Point
+
   def render(svg = %Svg{}) do
     [preamble, open_tag(svg), render_elements(Svg.elements(svg)), close_tag]
   end
@@ -23,23 +25,25 @@ defmodule Svg.Render do
     render_elements(rest, [list, render_element(elt)])
   end
 
-  defp render_element({:line, x1, y1, x2, y2}) do
-    ['<line x1="',
-     Integer.to_charlist(x1),
-     '" y1="',
-     Integer.to_charlist(y1),
-     '" x2="',
-     Integer.to_charlist(x2),
-     '" y2="',
-     Integer.to_charlist(y2),
-     '" style="stroke:rgb(255,0,0);stroke-width:2" />']
+  defp render_element({:line, pt1, pt2}) do
+    ['<line', render_point(pt1, '1'), render_point(pt2, '2'),
+     'style="stroke:rgb(255,0,0);stroke-width:2" />']
   end
 
-  defp render_element({:circle, x, y, r}) do
+  defp render_element({:circle, %Point{x: x, y: y}, r}) do
     ['<circle cx="', Integer.to_charlist(x), '" cy="', Integer.to_charlist(y), '" r="', Integer.to_charlist(r), '" style="stroke:black; fill:black;" />']
   end
 
-  defp render_element({:text, text, x, y}) do
-    ['<text x="', Integer.to_charlist(x), '" y="', Integer.to_charlist(y), '" fill="black" style="font-family:Arial; font-size:10pt; font-weight:normal;">', text, '</text>']
+  defp render_element({:text, text, pt}) do
+    ['<text', render_point(pt), 'fill="black" style="font-family:Arial; font-size:10pt; font-weight:normal;">', text, '</text>']
+  end
+
+  defp render_point(pt = %Point{}), do: render_point(pt, '')
+  defp render_point(%Point{x: x, y: y}, suffix) do
+    [' x', suffix, '="',
+     Integer.to_charlist(x),
+     '" y', suffix, '="',
+     Integer.to_charlist(y),
+     '" ']
   end
 end

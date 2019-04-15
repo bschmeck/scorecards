@@ -2,7 +2,7 @@ defmodule Svg.Render do
   alias Svg.Point
 
   def render(svg = %Svg{}) do
-    [preamble, open_tag(svg), render_elements(Svg.elements(svg)), close_tag]
+    [preamble(), open_tag(svg), render_elements(Svg.elements(svg)), close_tag()]
   end
 
   defp preamble do

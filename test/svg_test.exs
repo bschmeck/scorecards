@@ -22,4 +22,20 @@ defmodule SvgTest do
     rendered = svg |> Svg.render |> IO.iodata_to_binary
     assert rendered =~ ~r/<svg .*width="#{width}"/
   end
+
+  test "it renders a line" do
+    height = 99
+    width = 88
+    svg = Svg.init(width, height) |> Svg.add_line(0, 1, 2, 3)
+    rendered = svg |> Svg.render |> IO.iodata_to_binary
+    assert rendered =~ ~r/<line\s+x1="0"\s+y1="1"\s+x2="2"\s+y2="3"/
+  end
+
+  test "it renders a circle" do
+    height = 99
+    width = 88
+    svg = Svg.init(width, height) |> Svg.add_circle(0, 1, 2)
+    rendered = svg |> Svg.render |> IO.iodata_to_binary
+    assert rendered =~ ~r/<circle\s+cx="0"\s+cy="1"\s+r="2"/
+  end
 end

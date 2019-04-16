@@ -26,12 +26,12 @@ defmodule Svg.Render do
   end
 
   defp render_element({:line, pt1, pt2}) do
-    ['<line', render_point(pt1, '1'), render_point(pt2, '2'),
+    ['<line', render_point(pt1, suffix: '1'), render_point(pt2, suffix: '2'),
      'style="stroke:rgb(255,0,0);stroke-width:2" />']
   end
 
-  defp render_element({:circle, %Point{x: x, y: y}, r}) do
-    ['<circle cx="', Integer.to_charlist(x), '" cy="', Integer.to_charlist(y), '" r="', Integer.to_charlist(r), '" style="stroke:black; fill:black;" />']
+  defp render_element({:circle, pt, r}) do
+    ['<circle', render_point(pt, prefix: 'c'), 'r="', Integer.to_charlist(r), '" style="stroke:black; fill:black;" />']
   end
 
   defp render_element({:text, text, pt}) do
@@ -39,10 +39,13 @@ defmodule Svg.Render do
   end
 
   defp render_point(pt = %Point{}), do: render_point(pt, '')
-  defp render_point(%Point{x: x, y: y}, suffix) do
-    [' x', suffix, '="',
+  defp render_point(%Point{x: x, y: y}, opts) do
+    suffix = Keyword.get(opts, :suffix, '')
+    prefix = Keyword.get(opts, :prefix, '')
+
+    [' ', prefix, 'x', suffix, '="',
      Integer.to_charlist(x),
-     '" y', suffix, '="',
+     '" ', prefix, 'y', suffix, '="',
      Integer.to_charlist(y),
      '" ']
   end

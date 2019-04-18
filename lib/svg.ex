@@ -22,6 +22,10 @@ defmodule Svg do
     %__MODULE__{svg | elements: [{:text, text, %Point{x: x, y: y}} | svg.elements]}
   end
 
+  def add_image(svg, url, x, y, width, height) when is_point(x, y) and is_positive(width) and is_positive(height) do
+    %__MODULE__{svg | elements: [{:image, url, %Point{x: x, y: y}, width, height} | svg.elements]}
+  end
+
   def elements(%__MODULE__{elements: elts}), do: Enum.reverse(elts)
 
   def render(svg = %__MODULE__{}), do: Svg.Render.render(svg)

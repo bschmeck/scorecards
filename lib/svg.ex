@@ -2,7 +2,6 @@ defmodule Svg do
   defstruct [:width, :height, :elements]
 
   defguard is_positive(value) when is_number(value) and value >= 0
-  defguard is_point(x, y) when is_positive(x) and is_positive(y)
 
   alias Svg.{Circle, Image, Line, Text}
 

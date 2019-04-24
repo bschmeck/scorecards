@@ -44,7 +44,8 @@ defmodule SvgTest do
   test "it renders text" do
     height = 99
     width = 88
-    svg = Svg.init(width, height) |> Svg.add_text("Test String", 0, 1)
+    text = Svg.Text.init("Test String", 0, 1)
+    svg = Svg.init(width, height) |> Svg.add(text)
     rendered = svg |> Svg.render |> IO.iodata_to_binary
     assert rendered =~ ~r/<text\s+x="0"\s+y="1"[A-z0-9="\s:;\-]*>Test String<\/text>/
   end

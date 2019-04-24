@@ -34,7 +34,7 @@ defmodule Svg.Render do
     ['<circle', render_point(pt, prefix: 'c'), 'r="', Integer.to_charlist(r), '" style="stroke:black; fill:black;" />']
   end
 
-  defp render_element({:text, text, pt}) do
+  defp render_element(%Svg.Text{string: text, location: pt}) do
     ['<text', render_point(pt), 'fill="black" style="font-family:Arial; font-size:10pt; font-weight:normal;">', text, '</text>']
   end
 

@@ -4,7 +4,7 @@ defmodule Svg do
   defguard is_positive(value) when is_number(value) and value >= 0
   defguard is_point(x, y) when is_positive(x) and is_positive(y)
 
-  alias Svg.{Circle, Line, Point}
+  alias Svg.{Circle, Line, Point, Text}
 
   def init(width, height) when is_positive(width) and is_positive(height) do
     %__MODULE__{width: width, height: height, elements: []}
@@ -12,10 +12,7 @@ defmodule Svg do
 
   def add(svg, line = %Line{}), do: %__MODULE__{svg | elements: [line | svg.elements]}
   def add(svg, circle = %Circle{}), do: %__MODULE__{svg | elements: [circle | svg.elements]}
-
-  def add_text(svg, text, x, y) when is_point(x, y) do
-    %__MODULE__{svg | elements: [{:text, text, %Point{x: x, y: y}} | svg.elements]}
-  end
+  def add(svg, text = %Text{}), do: %__MODULE__{svg | elements: [text | svg.elements]}
 
   def add_image(svg, url, x, y, width, height) when is_point(x, y) and is_positive(width) and is_positive(height) do
     %__MODULE__{svg | elements: [{:image, url, %Point{x: x, y: y}, width, height} | svg.elements]}

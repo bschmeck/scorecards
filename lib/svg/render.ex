@@ -30,7 +30,7 @@ defmodule Svg.Render do
      'style="stroke:rgb(255,0,0);stroke-width:2" />']
   end
 
-  defp render_element({:circle, pt, r}) do
+  defp render_element(%Svg.Circle{center: pt, radius: r}) do
     ['<circle', render_point(pt, prefix: 'c'), 'r="', Integer.to_charlist(r), '" style="stroke:black; fill:black;" />']
   end
 

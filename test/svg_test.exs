@@ -35,7 +35,8 @@ defmodule SvgTest do
   test "it renders a circle" do
     height = 99
     width = 88
-    svg = Svg.init(width, height) |> Svg.add_circle(0, 1, 2)
+    circle = Svg.Circle.init(0, 1, 2)
+    svg = Svg.init(width, height) |> Svg.add(circle)
     rendered = svg |> Svg.render |> IO.iodata_to_binary
     assert rendered =~ ~r/<circle\s+cx="0"\s+cy="1"\s+r="2"/
   end

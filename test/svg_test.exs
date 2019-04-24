@@ -26,7 +26,8 @@ defmodule SvgTest do
   test "it renders a line" do
     height = 99
     width = 88
-    svg = Svg.init(width, height) |> Svg.add_line(0, 1, 2, 3)
+    line = Svg.Line.init(0, 1, 2, 3)
+    svg = Svg.init(width, height) |> Svg.add(line)
     rendered = svg |> Svg.render |> IO.iodata_to_binary
     assert rendered =~ ~r/<line\s+x1="0"\s+y1="1"\s+x2="2"\s+y2="3"/
   end

@@ -25,7 +25,7 @@ defmodule Svg.Render do
     render_elements(rest, [list, render_element(elt)])
   end
 
-  defp render_element({:line, pt1, pt2}) do
+  defp render_element(%Svg.Line{point1: pt1, point2: pt2}) do
     ['<line', render_point(pt1, suffix: '1'), render_point(pt2, suffix: '2'),
      'style="stroke:rgb(255,0,0);stroke-width:2" />']
   end

@@ -54,7 +54,8 @@ defmodule SvgTest do
     height = 99
     width = 88
     url = "http://example.com/image.jpeg"
-    svg = Svg.init(width, height) |> Svg.add_image(url, 0, 1, 2, 3)
+    image = Svg.Image.init(url, 0, 1, 2, 3)
+    svg = Svg.init(width, height) |> Svg.add(image)
     rendered = svg |> Svg.render |> IO.iodata_to_binary
     assert rendered =~ ~r/<image\s+width="2"\s+height="3"\s+x="0"\s+y="1"\s+xlink:href="#{url}" \/>/
   end

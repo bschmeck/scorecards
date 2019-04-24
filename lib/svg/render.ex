@@ -38,7 +38,7 @@ defmodule Svg.Render do
     ['<text', render_point(pt), 'fill="black" style="font-family:Arial; font-size:10pt; font-weight:normal;">', text, '</text>']
   end
 
-  defp render_element({:image, url, pt, w, h}) do
+  defp render_element(%Svg.Image{url: url, location: pt, width: w, height: h}) do
     ['<image width="', Integer.to_charlist(w), '" height="', Integer.to_charlist(h), '"', render_point(pt), 'xlink:href="', url, '" />']
   end
 

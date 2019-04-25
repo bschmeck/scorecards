@@ -47,7 +47,7 @@ defmodule SvgTest do
     text = Svg.Text.init("Test String", 0, 1)
     svg = Svg.init(width, height) |> Svg.add(text)
     rendered = svg |> Svg.render |> IO.iodata_to_binary
-    assert rendered =~ ~r/<text\s+x="0"\s+y="1"[A-z0-9="\s:;\-]*>Test String<\/text>/
+    assert rendered =~ ~r/<text\s+x="0"\s+y="1"[A-z0-9="\s:;\-]*><!\[CDATA\[Test String\]\]><\/text>/
   end
 
   test "it renders an image" do

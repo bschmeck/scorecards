@@ -35,7 +35,7 @@ defmodule Svg.Render do
   end
 
   defp render_element(%Svg.Text{string: text, location: pt}) do
-    ['<text', render_point(pt), 'fill="black" style="font-family:Arial; font-size:10pt; font-weight:normal;">', text, '</text>']
+    ['<text', render_point(pt), 'fill="black" style="font-family:Arial; font-size:10pt; font-weight:normal;"><![CDATA[', text, ']]></text>']
   end
 
   defp render_element(%Svg.Image{url: url, location: pt, width: w, height: h}) do

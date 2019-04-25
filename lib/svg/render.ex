@@ -2,7 +2,7 @@ defmodule Svg.Render do
   alias Svg.Point
 
   def render(svg = %Svg{}) do
-    [preamble(), open_tag(svg), render_elements(Svg.elements(svg)), close_tag()]
+    [preamble(), open_tag(svg), Enum.map(Svg.elements(svg), &render_element/1), close_tag()]
   end
 
   defp preamble do
@@ -18,12 +18,6 @@ defmodule Svg.Render do
   end
 
   defp close_tag, do: ['</svg>']
-
-  defp render_elements(elts), do: render_elements(elts, [])
-  defp render_elements([], list), do: list
-  defp render_elements([elt | rest], list) do
-    render_elements(rest, [list, render_element(elt)])
-  end
 
   defp render_element(%Svg.Line{point1: pt1, point2: pt2}) do
     ['<line', render_point(pt1, suffix: '1'), render_point(pt2, suffix: '2'),

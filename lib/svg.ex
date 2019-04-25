@@ -14,7 +14,7 @@ defmodule Svg do
   def add(svg, text = %Text{}), do: add_element(svg, text)
   def add(svg, image = %Image{}), do: add_element(svg, image)
 
-  def elements(%__MODULE__{elements: elts}), do: Enum.reverse(elts)
+  def elements(%__MODULE__{elements: elts}), do: elts
 
   def render(svg = %__MODULE__{}), do: Svg.Render.render(svg)
 

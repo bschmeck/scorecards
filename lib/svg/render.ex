@@ -24,9 +24,9 @@ defimpl Svg.Render, for: Svg do
 end
 
 defimpl Svg.Render, for: Svg.Line do
-  def render(%Svg.Line{point1: pt1, point2: pt2}, _opts) do
+  def render(%Svg.Line{point1: pt1, point2: pt2, style: style}, _opts) do
     ['<line', Svg.Render.render(pt1, suffix: '1'), Svg.Render.render(pt2, suffix: '2'),
-     'style="stroke:rgb(255,0,0);stroke-width:2" />']
+     Svg.Render.render(style), ' />']
   end
 end
 
@@ -59,4 +59,14 @@ defimpl Svg.Render, for: Svg.Point do
      Integer.to_charlist(y),
      '" ']
   end
+end
+
+defimpl Svg.Render, for: Svg.Style do
+  def render(style = %Svg.Style{}, _opts) do
+    [' style="', Enum.map(Svg.Style.to_list(style), &do_render/1), '"']
+  end
+
+  defp do_render({_, nil}), do: []
+  defp do_render({:stroke, color}), do: ['stroke: ', color, ';']
+  defp do_render({:stroke_width, w}), do: ['stroke-width:', Integer.to_charlist(w), ';']
 end

@@ -8,3 +8,10 @@ defmodule Svg.Line do
     %__MODULE__{point1: %Point{x: x1, y: y1}, point2: %Point{x: x2, y: y2}, style: style}
   end
 end
+
+defimpl Svg.Render, for: Svg.Line do
+  def render(%Svg.Line{point1: pt1, point2: pt2, style: style}, _opts) do
+    ['<line', Svg.Render.render(pt1, suffix: '1'), Svg.Render.render(pt2, suffix: '2'),
+     Svg.Render.render(style), ' />']
+  end
+end

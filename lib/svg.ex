@@ -20,3 +20,23 @@ defmodule Svg do
 
   defp add_element(svg, elt), do: %__MODULE__{svg | elements: [elt | svg.elements]}
 end
+
+defimpl Svg.Render, for: Svg do
+  def render(svg = %Svg{}, _opts) do
+    [preamble(), open_tag(svg), Enum.map(Svg.elements(svg), &Svg.Render.render/1), close_tag()]
+  end
+
+  defp preamble do
+    ['<?xml version="1.0" standalone="no"?>
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">']
+  end
+
+  defp open_tag(%Svg{width: w, height: h}) do
+    ['<svg width="', Integer.to_charlist(w), '" height="', Integer.to_charlist(h), '" version="1.1"
+    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">']
+  end
+
+  defp close_tag, do: ['</svg>']
+end

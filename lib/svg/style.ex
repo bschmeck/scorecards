@@ -9,3 +9,13 @@ defmodule Svg.Style do
     style |> Map.from_struct |> Map.to_list
   end
 end
+
+defimpl Svg.Render, for: Svg.Style do
+  def render(style = %Svg.Style{}, _opts) do
+    [' style="', Enum.map(Svg.Style.to_list(style), &do_render/1), '"']
+  end
+
+  defp do_render({_, nil}), do: []
+  defp do_render({:stroke, color = %Svg.Color{}}), do: ['stroke: ', Svg.Render.render(color), ';']
+  defp do_render({:stroke_width, w}), do: ['stroke-width:', Integer.to_charlist(w), ';']
+end

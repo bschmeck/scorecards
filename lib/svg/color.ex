@@ -10,3 +10,9 @@ defmodule Svg.Color do
   def black, do: init(0, 0, 0)
   def red, do: init(255, 0, 0)
 end
+
+defimpl Svg.Render, for: Svg.Color do
+  def render(%Svg.Color{red: r, green: g, blue: b}, _opts) do
+    ['rgb(', Integer.to_charlist(r), ',', Integer.to_charlist(g), ',', Integer.to_charlist(b), ')']
+  end
+end

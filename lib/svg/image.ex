@@ -8,3 +8,9 @@ defmodule Svg.Image do
     %__MODULE__{url: url, location: %Point{x: x, y: y}, width: width, height: height}
   end
 end
+
+defimpl Svg.Render, for: Svg.Image do
+  def render(%Svg.Image{url: url, location: pt, width: w, height: h}, _opts) do
+    ['<image width="', Integer.to_charlist(w), '" height="', Integer.to_charlist(h), '"', Svg.Render.render(pt), 'xlink:href="', url, '" />']
+  end
+end

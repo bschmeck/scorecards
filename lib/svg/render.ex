@@ -67,6 +67,12 @@ defimpl Svg.Render, for: Svg.Style do
   end
 
   defp do_render({_, nil}), do: []
-  defp do_render({:stroke, color}), do: ['stroke: ', color, ';']
+  defp do_render({:stroke, color = %Svg.Color{}}), do: ['stroke: ', Svg.Render.render(color), ';']
   defp do_render({:stroke_width, w}), do: ['stroke-width:', Integer.to_charlist(w), ';']
+end
+
+defimpl Svg.Render, for: Svg.Color do
+  def render(%Svg.Color{red: r, green: g, blue: b}, _opts) do
+    ['rgb(', Integer.to_charlist(r), ',', Integer.to_charlist(g), ',', Integer.to_charlist(b), ')']
+  end
 end

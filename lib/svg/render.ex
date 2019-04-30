@@ -8,5 +8,6 @@ defimpl Svg.Render, for: Float do
 end
 
 defimpl Svg.Render, for: Integer do
-  def render(float, _opts), do: Integer.to_charlist(float)
+  def render(integer, quoted: true), do: ['"', Svg.Render.render(integer), '"']
+  def render(integer, _opts), do: Integer.to_charlist(integer)
 end

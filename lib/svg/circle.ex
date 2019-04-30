@@ -11,6 +11,6 @@ end
 
 defimpl Svg.Render, for: Svg.Circle do
   def render(%Svg.Circle{center: pt, radius: r, style: style}, _opts) do
-    ['<circle', Svg.Render.render(pt, prefix: 'c'), 'r="', Integer.to_charlist(r), '" ', Svg.Render.render(style), ' />']
+    ['<circle', Svg.Render.render(pt, prefix: 'c'), 'r=', Svg.Render.render(r, quoted: true), ' ', Svg.Render.render(style), ' />']
   end
 end

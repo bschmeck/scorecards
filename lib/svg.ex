@@ -34,7 +34,7 @@ defimpl Svg.Render, for: Svg do
   end
 
   defp open_tag(%Svg{width: w, height: h}) do
-    ['<svg width="', Integer.to_charlist(w), '" height="', Integer.to_charlist(h), '" version="1.1"
+    ['<svg width=', Svg.Render.render(w, quoted: true), ' height=', Svg.Render.render(h, quoted: true), ' version="1.1"
     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">']
   end
 

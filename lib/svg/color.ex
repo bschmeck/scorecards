@@ -13,6 +13,6 @@ end
 
 defimpl Svg.Render, for: Svg.Color do
   def render(%Svg.Color{red: r, green: g, blue: b}, _opts) do
-    ['rgb(', Integer.to_charlist(r), ',', Integer.to_charlist(g), ',', Integer.to_charlist(b), ')']
+    ['rgb(', Svg.Render.render(r), ',', Svg.Render.render(g), ',', Svg.Render.render(b), ')']
   end
 end

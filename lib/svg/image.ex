@@ -11,6 +11,6 @@ end
 
 defimpl Svg.Render, for: Svg.Image do
   def render(%Svg.Image{url: url, location: pt, width: w, height: h}, _opts) do
-    ['<image width="', Integer.to_charlist(w), '" height="', Integer.to_charlist(h), '"', Svg.Render.render(pt), 'xlink:href="', url, '" />']
+    ['<image width=', Svg.Render.render(w, quoted: true), ' height=', Svg.Render.render(h, quoted: true), ' ', Svg.Render.render(pt), 'xlink:href="', url, '" />']
   end
 end

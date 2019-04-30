@@ -10,10 +10,10 @@ defimpl Svg.Render, for: Svg.Point do
     suffix = Keyword.get(opts, :suffix, '')
     prefix = Keyword.get(opts, :prefix, '')
 
-    [' ', prefix, 'x', suffix, '="',
-     Integer.to_charlist(x),
-     '" ', prefix, 'y', suffix, '="',
-     Integer.to_charlist(y),
-     '" ']
+    [' ', prefix, 'x', suffix, '=',
+     Svg.Render.render(x, quoted: true),
+     ' ', prefix, 'y', suffix, '=',
+     Svg.Render.render(y, quoted: true),
+     ' ']
   end
 end

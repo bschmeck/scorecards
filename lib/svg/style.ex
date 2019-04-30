@@ -25,7 +25,7 @@ defimpl Svg.Render, for: Svg.Style do
 
   defp do_render({_, nil}), do: []
   defp do_render({:stroke, color = %Svg.Color{}}), do: ['stroke: ', Svg.Render.render(color), ';']
-  defp do_render({:stroke_width, w}), do: ['stroke-width:', Integer.to_charlist(w), ';']
+  defp do_render({:stroke_width, w}), do: ['stroke-width:', Svg.Render.render(w), ';']
   defp do_render({:fill, color = %Svg.Color{}}), do: ['fill: ', Svg.Render.render(color), ';']
   defp do_render({:font_family, family}), do: ['font-family:', family, ';']
   defp do_render({:font_size, size}), do: ['font-size:', size, ';']
